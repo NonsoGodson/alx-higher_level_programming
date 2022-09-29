@@ -1,17 +1,16 @@
 #include "lists.h"
+
 /**
- * sum_dlistint - show us the sum of all the data (n) in a DLL
- * @head: a pointer to the head of the DLL
- * Return: the sum of all data of the DLL or 0 if is empty
+ * sum_dlistint - count all the elements of a dlistint_t list
+ * @head: start of doubly linked list
+ * Return: the sum of the n value of each node
  */
+
 int sum_dlistint(dlistint_t *head)
 {
-	int add_data = 0;
-	/* traverse the list and add each node value */
-	while (head != NULL)
-	{
-		add_data += head->n;
-		head = head->next;
-	}
-	return (add_data);
+	size_t sum;
+
+	for (sum = 0; head; head = head->next)
+		sum += head->n;
+	return (sum);
 }

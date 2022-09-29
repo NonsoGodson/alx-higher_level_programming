@@ -1,33 +1,40 @@
 #include "lists.h"
+#include <stdlib.h>
+
 /**
- * delete_dnodeint_at_index - deletes the node at index od a DLL
- * @head: double pointer to the head of the list
- * @index: the node that should be delete
- * Return: 1 if it succeeded or -1 if it failed
- */
-int delete_dnodeint_at_index​(​dlistint_t **head, unsigned int index)
+  * delete_dnodeint_at_index- insert at given index from a doubly linked list
+  * @head: start of doubly linked list
+  * @index: index to insert value
+  * Return: return 1 if succesful -1 if it fails
+  */
+
+int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-	dlistint_t *aux_head = *head;
+	unsigned int i;
+	dlistint_t *delete, *hold = *head;
+
 	if (*head == NULL)
 		return (-1);
-	while (index > 0)
+
+	if (index == 0)
 	{
-		if (aux_head == NULL)
-			return (-1);
-		aux_head = aux_head->next;
-		index--;
+		delete = hold;
+		*head = hold->next;
+		if (hold->next)
+			hold->next->prev = NULL;
+		free(delete);
+		return (1);
 	}
-	if (aux_head == *head)
-	{
-		*head = aux_head->next;
-		(*head)->prev = NULL;
-	}
-	else
-	{
-		aux_head->prev->next = aux_head->next;
-		if (aux_head->next)
-			aux_head->next->prev = aux_head->prev;
-	}
-	free(aux_head);
-	return (1);
+
+	for (i = 0; hold; i++, hold = hold->next)
+		if (i == index - 1 && hold->next)
+		{
+			delete = hold->next;
+			hold->next = delete->next;
+			if (hold->next)
+				hold->next->prev = hold;
+			free(delete);
+			return (1);
+		}
+	return (-1);
 }
