@@ -1,10 +1,14 @@
 #!/usr/bin/python3
-"""Inherits from list"""
+"""MyList
+"""
 
 
 class MyList(list):
-    """inherits from list"""
+    """Contains list
+    """
 
     def print_sorted(self):
-        """print sorted list"""
+        """Prints self in sorted format
+        """
+
         print(sorted(self))
